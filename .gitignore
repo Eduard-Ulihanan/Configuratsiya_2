@@ -1,0 +1,33 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# IDE and editor settings
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Binary files
+*.pdf
+*.exe
+*.bin
+*.dll
+*.so
+*.dylib
+*.png
+*.jpg
+*.jpeg
+*.zip
+*.tar
+*.gz
+*.xz
