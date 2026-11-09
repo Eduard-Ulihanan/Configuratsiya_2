@@ -1,0 +1,70 @@
+Package: curl
+Version: 7.81.0-1ubuntu1.16
+Architecture: amd64
+Depends: libc6 (>= 2.34), libcurl4 (= 7.81.0-1ubuntu1.16), zlib1g (>= 1:1.1.4)
+Description: command line tool for transferring data with URL syntax
+
+Package: libcurl4
+Version: 7.81.0-1ubuntu1.16
+Architecture: amd64
+Depends: libc6 (>= 2.34), libssl3 (>= 3.0.0~~alpha1), zlib1g (>= 1:1.1.4)
+Description: easy-to-use client-side URL transfer library
+
+Package: libc6
+Version: 2.35-0ubuntu3.8
+Architecture: amd64
+Depends: libgcc-s1
+Description: GNU C Library: Shared libraries
+
+Package: zlib1g
+Version: 1:1.2.11.dfsg-2ubuntu9.2
+Architecture: amd64
+Depends: libc6 (>= 2.34)
+Description: compression library - runtime
+
+Package: libssl3
+Version: 3.0.2-0ubuntu1.18
+Architecture: amd64
+Depends: libc6 (>= 2.34)
+Description: Secure Sockets Layer toolkit - shared libraries
+
+Package: libgcc-s1
+Version: 12.3.0-1ubuntu1~22.04
+Architecture: amd64
+Depends: libc6 (>= 2.35)
+Description: GCC support library
+
+Package: git
+Version: 1:2.34.1-1ubuntu1.11
+Architecture: amd64
+Depends: libc6 (>= 2.34), libz1, git-man (>> 1:2.34.1)
+Description: fast, scalable, distributed revision control system
+
+Package: git-man
+Version: 1:2.34.1-1ubuntu1.11
+Architecture: all
+Description: fast, scalable, distributed revision control system (man pages)
+
+Package: libz1
+Version: 1:1.2.11.dfsg-2ubuntu9.2
+Architecture: amd64
+Depends: libc6 (>= 2.34)
+Description: compression library - runtime
+
+Package: nano
+Version: 6.2-1
+Architecture: amd64
+Depends: libc6 (>= 2.34), libncursesw6 (>= 6), libtinfo6 (>= 6)
+Description: small, friendly text editor inspired by Pico
+
+Package: libncursesw6
+Version: 6.3-2ubuntu0.1
+Architecture: amd64
+Depends: libc6 (>= 2.34), libtinfo6 (= 6.3-2ubuntu0.1)
+Description: shared libraries for terminal handling (wide-character support)
+
+Package: libtinfo6
+Version: 6.3-2ubuntu0.1
+Architecture: amd64
+Depends: libc6 (>= 2.34)
+Description: shared low-level terminfo library for terminal handling

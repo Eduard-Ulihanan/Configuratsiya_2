@@ -9,11 +9,17 @@ from src.apt_parser import (
     parse_packages_index,
 )
 from src.config import ConfigError, load_config
+from src.graph import (
+    build_dependency_graph,
+    detect_cycles,
+    load_repository_data,
+)
 
 EXIT_SUCCESS = 0
 EXIT_FAILURE = 1
 STAGE_ONE = 1
 STAGE_TWO = 2
+STAGE_THREE = 3
 DEFAULT_CONFIG_PATH = "config.ini"
 
 
@@ -61,6 +67,26 @@ def run_stage_two(config_path: str) -> int:
     return EXIT_SUCCESS
 
 
+def run_stage_three(config_path: str) -> int:
+    """Execute Stage 3: Build transitive dependency graph with BFS."""
+    cfg = load_config(config_path)
+    repo = load_repository_data(cfg.repo_url, cfg.test_mode)
+    graph = build_dependency_graph(
+        cfg.package_name,
+        repo,
+        cfg.filter_substring,
+    )
+    print(f"Transitive dependency graph for {cfg.package_name} (BFS):")
+    for node, deps in graph.items():
+        print(f"  {node} -> {deps}")
+    cycles = detect_cycles(graph)
+    if cycles:
+        print(f"Cycles detected: {cycles}")
+    else:
+        print("Cycles detected: None")
+    return EXIT_SUCCESS
+
+
 def main(argv: list = None) -> int:
     """Main application routine."""
     if argv is None:
@@ -71,11 +97,13 @@ def main(argv: list = None) -> int:
             return run_stage_one(args.config_path)
         if args.stage == STAGE_TWO:
             return run_stage_two(args.config_path)
+        if args.stage == STAGE_THREE:
+            return run_stage_three(args.config_path)
         return EXIT_SUCCESS
     except ConfigError as err:
         sys.stderr.write(f"Configuration Error: {err}\n")
         return EXIT_FAILURE
-    except PackageNotFoundError as err:
+    except (PackageNotFoundError, KeyError) as err:
         sys.stderr.write(f"Package Error: {err}\n")
         return EXIT_FAILURE
     except Exception as exc:
