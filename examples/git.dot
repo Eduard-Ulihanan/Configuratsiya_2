@@ -1,0 +1,16 @@
+digraph "git" {
+  rankdir=LR;
+  node [shape=box, style="rounded,filled", fillcolor="#EBF3FB", color="#1A73E8", fontname="Helvetica"];
+  edge [color="#1A73E8", arrowhead=vee];
+  "git";
+  "git-man";
+  "libc6";
+  "libgcc-s1";
+  "libz1";
+  "git" -> "libc6";
+  "git" -> "libz1";
+  "git" -> "git-man";
+  "libc6" -> "libgcc-s1";
+  "libz1" -> "libc6";
+  "libgcc-s1" -> "libc6";
+}

@@ -1,0 +1,18 @@
+digraph "nano" {
+  rankdir=LR;
+  node [shape=box, style="rounded,filled", fillcolor="#EBF3FB", color="#1A73E8", fontname="Helvetica"];
+  edge [color="#1A73E8", arrowhead=vee];
+  "libc6";
+  "libgcc-s1";
+  "libncursesw6";
+  "libtinfo6";
+  "nano";
+  "nano" -> "libc6";
+  "nano" -> "libncursesw6";
+  "nano" -> "libtinfo6";
+  "libc6" -> "libgcc-s1";
+  "libncursesw6" -> "libc6";
+  "libncursesw6" -> "libtinfo6";
+  "libtinfo6" -> "libc6";
+  "libgcc-s1" -> "libc6";
+}

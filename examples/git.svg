@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 630 250" width="630" height="250">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1A73E8"/>
+    </marker>
+  </defs>
+  <path d="M 190 60 C 215 60, 215 125, 240 125" stroke="#1A73E8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 190 60 C 215 60, 215 190, 240 190" stroke="#1A73E8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 190 60 C 215 60, 215 60, 240 60" stroke="#1A73E8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 390 125 C 415 125, 415 60, 440 60" stroke="#1A73E8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 390 190 C 315 190, 315 125, 240 125" stroke="#1A73E8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 590 60 C 415 60, 415 125, 240 125" stroke="#1A73E8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <rect x="40" y="40" width="150" height="40" rx="8" fill="#EBF3FB" stroke="#1A73E8" stroke-width="2"/>
+  <text x="115" y="60" text-anchor="middle" dominant-baseline="central" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#202124">git</text>
+  <rect x="240" y="40" width="150" height="40" rx="8" fill="#EBF3FB" stroke="#1A73E8" stroke-width="2"/>
+  <text x="315" y="60" text-anchor="middle" dominant-baseline="central" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#202124">git-man</text>
+  <rect x="240" y="105" width="150" height="40" rx="8" fill="#EBF3FB" stroke="#1A73E8" stroke-width="2"/>
+  <text x="315" y="125" text-anchor="middle" dominant-baseline="central" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#202124">libc6</text>
+  <rect x="240" y="170" width="150" height="40" rx="8" fill="#EBF3FB" stroke="#1A73E8" stroke-width="2"/>
+  <text x="315" y="190" text-anchor="middle" dominant-baseline="central" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#202124">libz1</text>
+  <rect x="440" y="40" width="150" height="40" rx="8" fill="#EBF3FB" stroke="#1A73E8" stroke-width="2"/>
+  <text x="515" y="60" text-anchor="middle" dominant-baseline="central" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#202124">libgcc-s1</text>
+</svg>

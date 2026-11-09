@@ -1,0 +1,21 @@
+digraph "curl" {
+  rankdir=LR;
+  node [shape=box, style="rounded,filled", fillcolor="#EBF3FB", color="#1A73E8", fontname="Helvetica"];
+  edge [color="#1A73E8", arrowhead=vee];
+  "curl";
+  "libc6";
+  "libcurl4";
+  "libgcc-s1";
+  "libssl3";
+  "zlib1g";
+  "curl" -> "libc6";
+  "curl" -> "libcurl4";
+  "curl" -> "zlib1g";
+  "libc6" -> "libgcc-s1";
+  "libcurl4" -> "libc6";
+  "libcurl4" -> "libssl3";
+  "libcurl4" -> "zlib1g";
+  "zlib1g" -> "libc6";
+  "libgcc-s1" -> "libc6";
+  "libssl3" -> "libc6";
+}
