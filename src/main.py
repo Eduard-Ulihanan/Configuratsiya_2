@@ -2,11 +2,18 @@
 
 import argparse
 import sys
+from src.apt_parser import (
+    PackageNotFoundError,
+    fetch_repository_text,
+    get_direct_dependencies,
+    parse_packages_index,
+)
 from src.config import ConfigError, load_config
 
 EXIT_SUCCESS = 0
 EXIT_FAILURE = 1
 STAGE_ONE = 1
+STAGE_TWO = 2
 DEFAULT_CONFIG_PATH = "config.ini"
 
 
@@ -42,6 +49,18 @@ def run_stage_one(config_path: str) -> int:
     return EXIT_SUCCESS
 
 
+def run_stage_two(config_path: str) -> int:
+    """Execute Stage 2: Extract and display direct dependencies."""
+    cfg = load_config(config_path)
+    content = fetch_repository_text(cfg.repo_url)
+    repo = parse_packages_index(content)
+    direct_deps = get_direct_dependencies(cfg.package_name, repo)
+    print(f"Direct dependencies for {cfg.package_name}:")
+    for dep in direct_deps:
+        print(f"  - {dep}")
+    return EXIT_SUCCESS
+
+
 def main(argv: list = None) -> int:
     """Main application routine."""
     if argv is None:
@@ -50,12 +69,17 @@ def main(argv: list = None) -> int:
         args = parse_arguments(argv)
         if args.stage == STAGE_ONE:
             return run_stage_one(args.config_path)
+        if args.stage == STAGE_TWO:
+            return run_stage_two(args.config_path)
         return EXIT_SUCCESS
     except ConfigError as err:
         sys.stderr.write(f"Configuration Error: {err}\n")
         return EXIT_FAILURE
+    except PackageNotFoundError as err:
+        sys.stderr.write(f"Package Error: {err}\n")
+        return EXIT_FAILURE
     except Exception as exc:
-        sys.stderr.write(f"Unexpected Error: {exc}\n")
+        sys.stderr.write(f"Error: {exc}\n")
         return EXIT_FAILURE
 
 
