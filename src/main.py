@@ -14,12 +14,14 @@ from src.graph import (
     detect_cycles,
     load_repository_data,
 )
+from src.reverse_deps import get_reverse_dependencies
 
 EXIT_SUCCESS = 0
 EXIT_FAILURE = 1
 STAGE_ONE = 1
 STAGE_TWO = 2
 STAGE_THREE = 3
+STAGE_FOUR = 4
 DEFAULT_CONFIG_PATH = "config.ini"
 
 
@@ -87,6 +89,21 @@ def run_stage_three(config_path: str) -> int:
     return EXIT_SUCCESS
 
 
+def run_stage_four(config_path: str) -> int:
+    """Execute Stage 4: Output reverse dependencies for target package."""
+    cfg = load_config(config_path)
+    repo = load_repository_data(cfg.repo_url, cfg.test_mode)
+    direct_rev, all_rev = get_reverse_dependencies(
+        cfg.package_name,
+        repo,
+        cfg.filter_substring,
+    )
+    print(f"Reverse dependencies for {cfg.package_name}:")
+    print(f"  Direct reverse: {direct_rev}")
+    print(f"  All (transitive) reverse: {all_rev}")
+    return EXIT_SUCCESS
+
+
 def main(argv: list = None) -> int:
     """Main application routine."""
     if argv is None:
@@ -99,6 +116,8 @@ def main(argv: list = None) -> int:
             return run_stage_two(args.config_path)
         if args.stage == STAGE_THREE:
             return run_stage_three(args.config_path)
+        if args.stage == STAGE_FOUR:
+            return run_stage_four(args.config_path)
         return EXIT_SUCCESS
     except ConfigError as err:
         sys.stderr.write(f"Configuration Error: {err}\n")
