@@ -56,7 +56,7 @@ def _compute_ranks(
         curr = queue.pop(ZERO_VAL)
         curr_rank = ranks[curr]
         for neighbor in graph.get(curr, []):
-            if neighbor not in ranks or ranks[neighbor] < curr_rank + ONE_VAL:
+            if neighbor not in ranks:
                 ranks[neighbor] = curr_rank + ONE_VAL
                 queue.append(neighbor)
     return ranks

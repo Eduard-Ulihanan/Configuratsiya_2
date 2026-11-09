@@ -31,3 +31,7 @@ build/
 *.tar
 *.gz
 *.xz
+
+# Transient outputs
+output*.svg
+output*.dot
