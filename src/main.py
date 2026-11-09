@@ -15,6 +15,7 @@ from src.graph import (
     load_repository_data,
 )
 from src.reverse_deps import get_reverse_dependencies
+from src.visualizer import export_graph_visualization
 
 EXIT_SUCCESS = 0
 EXIT_FAILURE = 1
@@ -22,6 +23,7 @@ STAGE_ONE = 1
 STAGE_TWO = 2
 STAGE_THREE = 3
 STAGE_FOUR = 4
+STAGE_FIVE = 5
 DEFAULT_CONFIG_PATH = "config.ini"
 
 
@@ -42,9 +44,9 @@ def parse_arguments(argv: list) -> argparse.Namespace:
         "--stage",
         dest="stage",
         type=int,
-        default=STAGE_ONE,
+        default=STAGE_FIVE,
         choices=[1, 2, 3, 4, 5],
-        help="Stage of assignment to execute (1-5).",
+        help="Stage of assignment to execute (1-5). Default is 5.",
     )
     return parser.parse_args(argv)
 
@@ -104,21 +106,41 @@ def run_stage_four(config_path: str) -> int:
     return EXIT_SUCCESS
 
 
+def run_stage_five(config_path: str) -> int:
+    """Execute Stage 5: Export Graphviz DOT and render SVG image."""
+    cfg = load_config(config_path)
+    repo = load_repository_data(cfg.repo_url, cfg.test_mode)
+    graph = build_dependency_graph(
+        cfg.package_name,
+        repo,
+        cfg.filter_substring,
+    )
+    dot_file, svg_file = export_graph_visualization(
+        cfg.package_name,
+        graph,
+        cfg.output_image,
+    )
+    print(f"Graphviz DOT file generated: {dot_file}")
+    print(f"SVG image generated: {svg_file}")
+    with open(dot_file, "r", encoding="utf-8") as file:
+        print(file.read())
+    return EXIT_SUCCESS
+
+
 def main(argv: list = None) -> int:
     """Main application routine."""
     if argv is None:
         argv = sys.argv[1:]
     try:
         args = parse_arguments(argv)
-        if args.stage == STAGE_ONE:
-            return run_stage_one(args.config_path)
-        if args.stage == STAGE_TWO:
-            return run_stage_two(args.config_path)
-        if args.stage == STAGE_THREE:
-            return run_stage_three(args.config_path)
-        if args.stage == STAGE_FOUR:
-            return run_stage_four(args.config_path)
-        return EXIT_SUCCESS
+        runners = {
+            STAGE_ONE: run_stage_one,
+            STAGE_TWO: run_stage_two,
+            STAGE_THREE: run_stage_three,
+            STAGE_FOUR: run_stage_four,
+            STAGE_FIVE: run_stage_five,
+        }
+        return runners[args.stage](args.config_path)
     except ConfigError as err:
         sys.stderr.write(f"Configuration Error: {err}\n")
         return EXIT_FAILURE
